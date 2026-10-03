@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction Result - AI Agricultural Yield Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🌾 AI Agricultural Yield Prediction</h1>
+        <p>Crop yield and weather suitability analysis</p>
+    </div>
+
+    <!-- Yield Prediction -->
+
+    <div class="card">
+
+        <h2>Yield Prediction</h2>
+
+        <div class="result-box">
+
+            <p>Estimated Crop Yield</p>
+
+            <div class="yield">
+                {{ result.predicted_yield }} kg/ha
+            </div>
+
+        </div>
+
+        <div class="selected-info">
+
+            <p>
+                <strong>Location:</strong>
+                {{ result.location }}, {{ result.state }}
+            </p>
+
+            <p>
+                <strong>Season:</strong>
+                {{ result.season }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Weather Analysis -->
+
+    <div class="card">
+
+        <h2>Weather Analysis</h2>
+
+        <div class="weather-grid">
+
+            <div class="weather-item">
+                <strong>Temperature</strong>
+                {{ result.average_temperature }} °C
+            </div>
+
+            <div class="weather-item">
+                <strong>Total Rainfall</strong>
+                {{ result.total_rainfall }} mm
+            </div>
+
+            <div class="weather-item">
+                <strong>Average Humidity</strong>
+                {{ result.average_humidity }} %
+            </div>
+
+        </div>
+
+        <p style="margin-top: 20px;">
+            <strong>Days Analyzed:</strong>
+            {{ result.days_analyzed }}
+        </p>
+
+    </div>
+
+
+    <!-- Weather Suitability -->
+
+    <div class="card">
+
+        <h2>Crop Weather Suitability</h2>
+
+        <div class="suitability">
+
+            <p>
+                <strong>Temperature:</strong>
+
+                {% if result.temperature_status == "Suitable" %}
+                    <span class="suitable">
+                        {{ result.temperature_status }}
+                    </span>
+                {% else %}
+                    <span class="less-suitable">
+                        {{ result.temperature_status }}
+                    </span>
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Rainfall:</strong>
+
+                {% if result.rainfall_status == "Suitable" %}
+                    <span class="suitable">
+                        {{ result.rainfall_status }}
+                    </span>
+                {% else %}
+                    <span class="less-suitable">
+                        {{ result.rainfall_status }}
+                    </span>
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Humidity:</strong>
+
+                {% if result.humidity_status == "Suitable" %}
+                    <span class="suitable">
+                        {{ result.humidity_status }}
+                    </span>
+                {% else %}
+                    <span class="less-suitable">
+                        {{ result.humidity_status }}
+                    </span>
+                {% endif %}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Overall Suitability -->
+
+    <div class="card">
+
+        <h2>Overall Weather Suitability</h2>
+
+        <div class="result-box">
+
+            {% if result.overall_suitability == "Suitable" %}
+
+                <div class="yield suitable">
+                    Suitable
+                </div>
+
+            {% else %}
+
+                <div class="yield less-suitable">
+                    Less Suitable
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <p>
+            Weather suitability is based on available weather data
+            and the preferred weather ranges defined for the selected crop.
+        </p>
+
+    </div>
+
+
+    <!-- New Prediction -->
+
+    <a href="/" class="secondary-button">
+        ← Make Another Prediction
+    </a>
+
+
+    <div class="footer">
+        AI Agricultural Yield Prediction System
+    </div>
+
+</div>
+
+</body>
+</html>
+
