@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Select Farm - AI Agricultural Yield Prediction</title>
 
     <link rel="stylesheet"
@@ -13,10 +14,32 @@
 
 <div class="container">
 
-    <div class="header">
-        <h1>🌾 AI Agricultural Yield Prediction</h1>
-        <p>AI-powered farm yield and weather suitability analysis</p>
+    <!-- DASHBOARD LINK -->
+
+    <div style="text-align: right; margin-bottom: 15px;">
+        <a href="{{ url_for('dashboard') }}"
+           style="text-decoration: none;
+                  color: #16833f;
+                  font-weight: 600;">
+            🏠 Dashboard
+        </a>
     </div>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>🌾 AI Agricultural Yield Prediction</h1>
+
+        <p>
+            AI-powered farm yield and weather suitability analysis
+        </p>
+
+    </div>
+
+
+    <!-- FARM SELECTION CARD -->
 
     <div class="card">
 
@@ -24,48 +47,112 @@
 
         <form method="POST">
 
+            <!-- STATE -->
+
             <div class="form-group">
-                <label for="state">State</label>
+
+                <label for="state">
+                    State
+                </label>
+
                 <input
                     type="text"
                     id="state"
                     name="state"
                     placeholder="Enter state"
-                    required>
+                    required
+                >
+
             </div>
 
+
+            <!-- DISTRICT -->
+
             <div class="form-group">
-                <label for="district">District</label>
+
+                <label for="district">
+                    District
+                </label>
+
                 <input
                     type="text"
                     id="district"
                     name="district"
                     placeholder="Enter district"
-                    required>
+                    required
+                >
+
             </div>
+
+
+            <!-- CROP -->
 
             <div class="form-group">
-                <label for="crop_type">Crop</label>
 
-                <select id="crop_type"
-                        name="crop_type"
-                        required>
+                <label for="crop_type">
+                    Crop
+                </label>
 
-                    <option value="">Select a crop</option>
-                    <option value="Maize">Maize</option>
-                    <option value="Rice">Rice</option>
-                    <option value="Wheat">Wheat</option>
-                    <option value="Cotton">Cotton</option>
-                    <option value="Mustard">Mustard</option>
-                    <option value="Groundnut">Groundnut</option>
-                    <option value="Soybean">Soybean</option>
-                    <option value="Bajra">Bajra</option>
-                    <option value="Jowar">Jowar</option>
-                    <option value="Barley">Barley</option>
-                    <option value="Moong">Moong</option>
+                <select
+                    id="crop_type"
+                    name="crop_type"
+                    required
+                >
+
+                    <option value="">
+                        Select a crop
+                    </option>
+
+                    <option value="Maize">
+                        Maize
+                    </option>
+
+                    <option value="Rice">
+                        Rice
+                    </option>
+
+                    <option value="Wheat">
+                        Wheat
+                    </option>
+
+                    <option value="Cotton">
+                        Cotton
+                    </option>
+
+                    <option value="Mustard">
+                        Mustard
+                    </option>
+
+                    <option value="Groundnut">
+                        Groundnut
+                    </option>
+
+                    <option value="Soybean">
+                        Soybean
+                    </option>
+
+                    <option value="Bajra">
+                        Bajra
+                    </option>
+
+                    <option value="Jowar">
+                        Jowar
+                    </option>
+
+                    <option value="Barley">
+                        Barley
+                    </option>
+
+                    <option value="Moong">
+                        Moong
+                    </option>
 
                 </select>
+
             </div>
+
+
+            <!-- SUBMIT -->
 
             <button type="submit">
                 Continue →
@@ -74,6 +161,9 @@
         </form>
 
     </div>
+
+
+    <!-- FOOTER -->
 
     <div class="footer">
         AI Agricultural Yield Prediction System
