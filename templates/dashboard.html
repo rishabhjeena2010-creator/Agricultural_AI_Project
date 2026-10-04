@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AI Agricultural Yield Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+
+    <style>
+
+        /* =====================================================
+           DASHBOARD
+           ===================================================== */
+
+        .dashboard {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HERO
+           ===================================================== */
+
+        .hero {
+            position: relative;
+
+            min-height: 430px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin-bottom: 25px;
+
+            background: #e8f5e9;
+        }
+
+
+        /* =====================================================
+           HERO IMAGE
+           ===================================================== */
+
+        .nature-image {
+
+            position: absolute;
+
+            right: 0;
+            top: 0;
+
+            width: 55%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(232,245,233,1) 0%,
+                    rgba(232,245,233,0.75) 10%,
+                    rgba(232,245,233,0.15) 35%,
+                    rgba(0,0,0,0) 70%
+                ),
+
+                url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85");
+
+            background-size: cover;
+
+            background-position: center;
+        }
+
+
+        /* =====================================================
+           HERO TEXT
+           ===================================================== */
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 48%;
+
+            max-width: 520px;
+
+            padding: 70px 35px 70px 55px;
+
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           HERO TAG
+           ===================================================== */
+
+        .hero-tag {
+
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.88);
+
+            color: #19703d;
+
+            font-weight: 600;
+
+            margin-bottom: 18px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           HERO TITLE
+           ===================================================== */
+
+        .hero-content h1 {
+
+            font-size: 42px;
+
+            line-height: 1.12;
+
+            margin-bottom: 18px;
+
+            color: #145c35;
+        }
+
+
+        /* =====================================================
+           HERO DESCRIPTION
+           ===================================================== */
+
+        .hero-content p {
+
+            font-size: 16px;
+
+            line-height: 1.65;
+
+            color: #365344;
+
+            margin-bottom: 25px;
+
+            max-width: 430px;
+        }
+
+
+        /* =====================================================
+           HERO BUTTON
+           ===================================================== */
+
+        .hero-button {
+
+            display: inline-block;
+
+            padding: 13px 24px;
+
+            background: #16833f;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .hero-button:hover {
+
+            transform: translateY(-2px);
+
+            background: #116d34;
+        }
+
+
+        /* =====================================================
+           DASHBOARD SECTIONS
+           ===================================================== */
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .dashboard-card {
+
+            background: rgba(255,255,255,0.95);
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(40,80,50,0.08);
+
+            border: 1px solid #e2eee4;
+        }
+
+
+        .dashboard-card h2 {
+
+            color: #185c37;
+
+            margin-bottom: 12px;
+
+            font-size: 23px;
+        }
+
+
+        .dashboard-card p {
+
+            color: #52645a;
+
+            line-height: 1.65;
+        }
+
+
+        /* =====================================================
+           WORKFLOW
+           ===================================================== */
+
+        .workflow {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+
+        .workflow-item {
+
+            text-align: center;
+
+            padding: 15px 10px;
+        }
+
+
+        .workflow-number {
+
+            width: 42px;
+
+            height: 42px;
+
+            margin: 0 auto 10px;
+
+            border-radius: 50%;
+
+            background: #188344;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        .workflow-item h3 {
+
+            font-size: 16px;
+
+            color: #214d35;
+
+            margin-bottom: 6px;
+        }
+
+
+        .workflow-item p {
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           CROPS
+           ===================================================== */
+
+        .crop-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+
+        .crop {
+
+            background: #f1f8f1;
+
+            border-radius: 10px;
+
+            padding: 13px 5px;
+
+            text-align: center;
+
+            color: #285a3c;
+
+            font-weight: 600;
+
+            font-size: 13px;
+        }
+
+
+        .crop-icon {
+
+            font-size: 25px;
+
+            display: block;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* =====================================================
+           MODEL
+           ===================================================== */
+
+        .model-highlight {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef9ef,
+                    #e1f4e7
+                );
+        }
+
+
+        /* =====================================================
+           PERFORMANCE
+           ===================================================== */
+
+        .performance {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        .metric {
+
+            padding: 18px 10px;
+
+            text-align: center;
+
+            background: white;
+
+            border-radius: 12px;
+
+            border: 1px solid #dbece0;
+        }
+
+
+        .metric strong {
+
+            display: block;
+
+            font-size: 25px;
+
+            color: #16743a;
+
+            margin-bottom: 5px;
+        }
+
+
+        .metric span {
+
+            font-size: 12px;
+
+            color: #718078;
+        }
+
+
+        /* =====================================================
+           WEATHER
+           ===================================================== */
+
+        .weather-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef8ff,
+                    #f4fbff
+                );
+        }
+
+
+        .weather-points {
+
+            margin-top: 15px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .weather-point {
+
+            background: white;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            text-align: center;
+        }
+
+
+        .weather-point span {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #71808b;
+
+            margin-bottom: 5px;
+        }
+
+
+        .weather-point strong {
+
+            color: #245c75;
+
+            font-size: 18px;
+        }
+
+
+        /* =====================================================
+           LIMITATIONS / FUTURE SCOPE
+           ===================================================== */
+
+        .future-list {
+
+            padding-left: 20px;
+
+            color: #52645a;
+
+            line-height: 1.9;
+        }
+
+
+        /* =====================================================
+           FINAL CTA
+           ===================================================== */
+
+        .cta {
+
+            text-align: center;
+
+            padding: 35px;
+
+            margin-top: 20px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf7ec,
+                    #dff1e4
+                );
+        }
+
+
+        .cta h2 {
+
+            color: #145c35;
+
+            margin-bottom: 10px;
+        }
+
+
+        .cta p {
+
+            color: #53685a;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           TABLET
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .dashboard-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .workflow {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .crop-grid {
+
+                grid-template-columns:
+                    repeat(4, 1fr);
+            }
+
+
+            .performance {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .nature-image {
+
+                opacity: 0.28;
+
+                width: 100%;
+            }
+
+
+            .hero-content {
+
+                width: 65%;
+
+                max-width: 600px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .hero-content {
+
+                width: 100%;
+
+                padding: 45px 25px;
+            }
+
+
+            .hero-content h1 {
+
+                font-size: 34px;
+            }
+
+
+            .workflow {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .crop-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .weather-points {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .nature-image {
+
+                opacity: 0.20;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="header">
+
+        <h1>
+            🌾 AI Agricultural Yield Prediction
+        </h1>
+
+        <p>
+            Smarter farming through AI and weather analysis
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         DASHBOARD
+         ===================================================== -->
+
+    <main class="dashboard">
+
+
+        <!-- =================================================
+             HERO
+             ================================================= -->
+
+        <section class="hero">
+
+
+            <div class="nature-image"></div>
+
+
+            <div class="hero-content">
+
+
+                <div class="hero-tag">
+
+                    🌱 Smarter Farming • Better Decisions
+
+                </div>
+
+
+                <h1>
+
+                    AI Agricultural<br>
+                    Yield Prediction
+
+                </h1>
+
+
+                <p>
+
+                    An AI-powered agricultural decision-support
+                    system designed to estimate crop yield and
+                    provide additional weather suitability insights.
+
+                </p>
+
+
+                <a
+                    href="{{ url_for('select') }}"
+                    class="hero-button"
+                >
+
+                    Start Prediction →
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT + HOW IT WORKS
+             ================================================= -->
+
+        <div class="dashboard-grid">
+
+
+            <section class="dashboard-card">
+
+
+                <h2>
+                    🌿 About the Project
+                </h2>
+
+
+                <p>
+
+                    The AI Agricultural Yield Prediction System
+                    helps users estimate crop yield based on
+                    selected farm and agricultural conditions.
+
+                </p>
+
+
+                <p>
+
+                    The system combines a trained Machine Learning
+                    model with a separate weather-analysis module
+                    to provide additional information about the
+                    selected crop.
+
+                </p>
+
+
+            </section>
+
+
+            <section class="dashboard-card">
+
+
+                <h2>
+                    ⚙️ How the System Works
+                </h2>
+
+
+                <div class="workflow">
+
+
+                    <div class="workflow-item">
+
+                        <div class="workflow-number">
+                            1
+                        </div>
+
+                        <h3>
+                            Select Farm
+                        </h3>
+
+                        <p>
+                            Enter state, district and crop.
+                        </p>
+
+                    </div>
+
+
+                    <div class="workflow-item">
+
+                        <div class="workflow-number">
+                            2
+                        </div>
+
+                        <h3>
+                            Farm Details
+                        </h3>
+
+                        <p>
+                            Provide agricultural information.
+                        </p>
+
+                    </div>
+
+
+                    <div class="workflow-item">
+
+                        <div class="workflow-number">
+                            3
+                        </div>
+
+                        <h3>
+                            AI Prediction
+                        </h3>
+
+                        <p>
+                            Random Forest predicts yield.
+                        </p>
+
+                    </div>
+
+
+                    <div class="workflow-item">
+
+                        <div class="workflow-number">
+                            4
+                        </div>
+
+                        <h3>
+                            Weather Analysis
+                        </h3>
+
+                        <p>
+                            Weather conditions are evaluated
+                            separately.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =================================================
+             CROPS + MODEL
+             ================================================= -->
+
+        <div class="dashboard-grid">
+
+
+            <section class="dashboard-card">
+
+
+                <h2>
+                    🌱 Crops Covered
+                </h2>
+
+
+                <p>
+
+                    The current dataset contains 11 agricultural
+                    crops.
+
+                </p>
+
+
+                <div class="crop-grid">
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌽</span>
+                        Maize
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌾</span>
+                        Rice
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌾</span>
+                        Wheat
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌿</span>
+                        Cotton
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌼</span>
+                        Mustard
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🥜</span>
+                        Groundnut
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🫘</span>
+                        Soybean
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌾</span>
+                        Bajra
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌾</span>
+                        Jowar
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🌾</span>
+                        Barley
+                    </div>
+
+
+                    <div class="crop">
+                        <span class="crop-icon">🫘</span>
+                        Moong
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <section class="dashboard-card model-highlight">
+
+
+                <h2>
+                    🤖 About the AI Model
+                </h2>
+
+
+                <p>
+
+                    The system uses a
+                    <strong>
+                        Random Forest Regression
+                    </strong>
+                    model for agricultural yield prediction.
+
+                </p>
+
+
+                <p>
+
+                    Random Forest combines multiple decision trees
+                    to make predictions. This allows the model to
+                    learn relationships between agricultural inputs
+                    and crop yield.
+
+                </p>
+
+
+                <p>
+
+                    The model was trained using
+                    <strong>
+                        1,500 agricultural records
+                    </strong>.
+
+                </p>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MODEL PERFORMANCE
+             ================================================= -->
+
+        <section class="dashboard-card">
+
+
+            <h2>
+                📊 Model Performance
+            </h2>
+
+
+            <p>
+
+                The model was evaluated using a separate test set
+                and 5-fold cross-validation.
+
+            </p>
+
+
+            <div class="performance">
+
+
+                <div class="metric">
+
+                    <strong>
+                        350.84
+                    </strong>
+
+                    <span>
+                        MAE (kg/ha)
+                    </span>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <strong>
+                        496.21
+                    </strong>
+
+                    <span>
+                        RMSE (kg/ha)
+                    </span>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <strong>
+                        0.8809
+                    </strong>
+
+                    <span>
+                        Test R²
+                    </span>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <strong>
+                        0.8976
+                    </strong>
+
+                    <span>
+                        5-Fold CV R²
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             WEATHER
+             ================================================= -->
+
+        <section
+            class="dashboard-card weather-card"
+            style="margin-top:20px;"
+        >
+
+
+            <h2>
+                ☀️ Weather Analysis
+            </h2>
+
+
+            <p>
+
+                Weather information is obtained separately from
+                the Machine Learning prediction.
+
+            </p>
+
+
+            <p>
+
+                Temperature, rainfall and humidity are analyzed
+                and compared with preferred weather ranges defined
+                for the selected crop.
+
+            </p>
+
+
+            <div class="weather-points">
+
+
+                <div class="weather-point">
+
+                    <span>
+                        🌡 Temperature
+                    </span>
+
+                    <strong>
+                        Live Analysis
+                    </strong>
+
+                </div>
+
+
+                <div class="weather-point">
+
+                    <span>
+                        🌧 Rainfall
+                    </span>
+
+                    <strong>
+                        Season Analysis
+                    </strong>
+
+                </div>
+
+
+                <div class="weather-point">
+
+                    <span>
+                        💧 Humidity
+                    </span>
+
+                    <strong>
+                        Crop Suitability
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             LIMITATIONS + FUTURE SCOPE
+             ================================================= -->
+
+        <div
+            class="dashboard-grid"
+            style="margin-top:20px;"
+        >
+
+
+            <section class="dashboard-card">
+
+
+                <h2>
+                    ⚠️ Limitations
+                </h2>
+
+
+                <ul class="future-list">
+
+
+                    <li>
+                        The prediction is an estimate based on
+                        information provided by the user.
+                    </li>
+
+
+                    <li>
+                        Model predictions depend on patterns
+                        learned from the training dataset.
+                    </li>
+
+
+                    <li>
+                        Soil properties such as pH and nutrient
+                        levels are not currently required from users.
+                    </li>
+
+
+                </ul>
+
+
+            </section>
+
+
+            <section class="dashboard-card">
+
+
+                <h2>
+                    🚀 Future Scope
+                </h2>
+
+
+                <ul class="future-list">
+
+
+                    <li>
+                        Integration of more real-time
+                        agricultural data.
+                    </li>
+
+
+                    <li>
+                        Soil testing and soil-health analysis.
+                    </li>
+
+
+                    <li>
+                        More crops and larger datasets.
+                    </li>
+
+
+                    <li>
+                        More advanced Machine Learning models.
+                    </li>
+
+
+                    <li>
+                        More detailed farming recommendations.
+                    </li>
+
+
+                </ul>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =================================================
+             FINAL CTA
+             ================================================= -->
+
+        <section class="cta">
+
+
+            <h2>
+                🌱 Ready to Predict?
+            </h2>
+
+
+            <p>
+
+                Enter your farm information and get an AI-based
+                yield prediction with additional weather
+                suitability analysis.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('select') }}"
+                class="hero-button"
+            >
+
+                Start Prediction →
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="footer">
+
+        AI Agricultural Yield Prediction System
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
