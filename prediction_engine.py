@@ -1,5 +1,10 @@
 from model import predict_yield
-from weather import get_location, get_weather, calculate_weather_summary, get_season_dates
+from weather import (
+    get_location,
+    get_weather,
+    calculate_weather_summary,
+    get_season_dates
+)
 from crop_requirements import check_suitability
 
 
@@ -18,6 +23,11 @@ def run_prediction(
     pest_infection_level,
     sowing_month
 ):
+
+    # ========================================================
+    # ML YIELD PREDICTION
+    # ========================================================
+
     predicted_yield = predict_yield(
         state=state,
         district=district,
@@ -34,9 +44,26 @@ def run_prediction(
         sowing_month=sowing_month
     )
 
+
+    # ========================================================
+    # CALCULATE TOTAL ESTIMATED CROP
+    # ========================================================
+
+    total_yield = predicted_yield * area_hectares
+
+
+    # ========================================================
+    # WEATHER LOCATION
+    # ========================================================
+
     location = f"{district}, {state}"
 
     location_data = get_location(location)
+
+
+    # ========================================================
+    # GET WEATHER DATA
+    # ========================================================
 
     weather = get_weather(
         location_data["latitude"],
@@ -44,63 +71,80 @@ def run_prediction(
         season
     )
 
-    weather_summary = calculate_weather_summary(weather)
+
+    # ========================================================
+    # WEATHER SUMMARY
+    # ========================================================
+
+    weather_summary = calculate_weather_summary(
+        weather
+    )
+
+
+    # ========================================================
+    # WEATHER SUITABILITY
+    # ========================================================
 
     suitability = check_suitability(
         crop_type,
         weather_summary
     )
 
-    start_date, end_date = get_season_dates(season)
 
-    return {
-        "predicted_yield": predicted_yield,
-        "location": location_data["name"],
-        "state": location_data["state"],
-        "country": location_data["country"],
-        "season": season,
-        "start_date": start_date,
-        "end_date": end_date,
-        "average_temperature": weather_summary["average_temperature"],
-        "total_rainfall": weather_summary["total_rainfall"],
-        "average_humidity": weather_summary["average_humidity"],
-        "days_analyzed": weather_summary["number_of_days"],
-        "temperature_status": suitability["temperature_status"],
-        "rainfall_status": suitability["rainfall_status"],
-        "humidity_status": suitability["humidity_status"],
-        "overall_suitability": suitability["overall_status"]
-    }
+    # ========================================================
+    # SEASON DATES
+    # ========================================================
 
-
-if __name__ == "__main__":
-    result = run_prediction(
-        state="Haryana",
-        district="Gurugram",
-        crop_year=2026,
-        crop_type="Maize",
-        season="Kharif",
-        area_hectares=2.7,
-        fertilizer_type="NPK",
-        fertilizer_amount=135,
-        irrigation_method="Drip",
-        irrigation_frequency=6,
-        pesticide_used="Yes",
-        pest_infection_level="Low",
-        sowing_month=7
+    start_date, end_date = get_season_dates(
+        season
     )
 
-    print("\n========== PREDICTION ==========")
-    print("Predicted Yield:", result["predicted_yield"], "kg/ha")
 
-    print("\n========== WEATHER ==========")
-    print("Season:", result["season"])
-    print("Average Temperature:", result["average_temperature"], "°C")
-    print("Total Rainfall:", result["total_rainfall"], "mm")
-    print("Average Humidity:", result["average_humidity"], "%")
-    print("Days Analyzed:", result["days_analyzed"])
+    # ========================================================
+    # FINAL RESULT
+    # ========================================================
 
-    print("\n========== SUITABILITY ==========")
-    print("Temperature:", result["temperature_status"])
-    print("Rainfall:", result["rainfall_status"])
-    print("Humidity:", result["humidity_status"])
-    print("Overall:", result["overall_suitability"])
+    return {
+
+        # Original ML prediction in kg/ha
+        "predicted_yield": predicted_yield,
+
+        # Total estimated crop for entered farm area in kg
+        "total_yield": round(total_yield, 2),
+
+        "location": location_data["name"],
+
+        "state": location_data["state"],
+
+        "country": location_data["country"],
+
+        "season": season,
+
+        "start_date": start_date,
+
+        "end_date": end_date,
+
+        "average_temperature":
+            weather_summary["average_temperature"],
+
+        "total_rainfall":
+            weather_summary["total_rainfall"],
+
+        "average_humidity":
+            weather_summary["average_humidity"],
+
+        "days_analyzed":
+            weather_summary["number_of_days"],
+
+        "temperature_status":
+            suitability["temperature_status"],
+
+        "rainfall_status":
+            suitability["rainfall_status"],
+
+        "humidity_status":
+            suitability["humidity_status"],
+
+        "overall_suitability":
+            suitability["overall_status"]
+    }
